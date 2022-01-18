@@ -1,0 +1,98 @@
+header
+{
+    display: flex;
+    height: 250px;
+    justify-content: space-around;
+    align-items: center;
+    background: #000;
+    margin-bottom: 10px;
+}
+
+.left
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+}
+
+.logo
+{
+    color: #fff;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+.right
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+}
+
+nav{
+    color: #fff;
+    font-size: 24px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+main
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.left_div
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 400px;
+    width: 48%;
+}
+
+.big_block
+{
+    background: #000;
+    color: #fff;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    width: 100%;
+}
+
+.right_div
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 48%;
+    height: 400px;
+}
+
+.small_block
+{
+    background: #000;
+    color: #fff;
+    font-size: 24px;
+    height: 190px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
