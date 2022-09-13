@@ -23,6 +23,6 @@ io.on("connection", (socket) => {
   console.log(`New user connected: ${socket.id}`);
 });
 
-server.listen(7000, () => {
-  console.log("Server listens to port 7000");
+server.listen(10000, () => {
+  console.log("Server listens to port 10000");
 });
