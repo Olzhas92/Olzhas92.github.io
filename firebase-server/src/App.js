@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   return (
     <React.Fragment>
+      <h1>Hello World!</h1>
       <BootstrapNavbar />
       <Routes>
         <Route path="/" element={<Home />} />
