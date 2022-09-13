@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Chat from "./components/Chat";
+import SignIn from "./components/SignIn";
+import SignOut from "./components/SignOut";
+import { auth } from "./firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Routes, Route } from "react-router-dom";
 
-function App() {
+const App = () => {
+  const [user] = useAuthState(auth);
+  // const [logout, setLogout] = useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      {user ? <Chat /> : <SignIn />}
+      {user ? <SignOut /> : ""}
+    </React.Fragment>
   );
-}
+};
 
 export default App;
