@@ -4,8 +4,12 @@ import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
 import store from "./features/store";
+import { fetchCountries } from "./features/CountriesSlice";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+store.dispatch(fetchCountries());
+
 root.render(
   <Provider store={store}>
     <App />
