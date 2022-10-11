@@ -7,7 +7,10 @@ const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator
+      screenOptions={{ headerShown: false }}
+      initialRouteName="Player"
+    >
       <Tab.Screen name="Music" component={Music} />
       <Tab.Screen name="Player" component={Player} />
       <Tab.Screen name="Favorite" component={FavoriteMusic} />
