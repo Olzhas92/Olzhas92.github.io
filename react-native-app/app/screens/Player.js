@@ -7,9 +7,9 @@ import {
   Text,
   Pressable,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import songs from "../../model/data";
-import { Audio } from "expo-av";
+import { play } from "../features/audioControllers";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Slider from "@react-native-community/slider";
 
@@ -18,23 +18,42 @@ const { width, height } = Dimensions.get("window");
 const Player = () => {
   const [songIndex, setSongIndex] = useState(0);
   const [soundObj, setSoundObj] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const handleMusic = async () => {
     if (soundObj === null) {
-      const playbackObj = new Audio.Sound();
-      const status = await playbackObj.loadAsync(songs[songIndex].url, {
-        shouldPlay: true,
-      });
-      setSoundObj({ playbackObj, status });
-      console.log(status);
+      play(songs[songIndex], setSoundObj, setIsPlaying, isPlaying);
     }
 
     // pause
-    if (soundObj.status.isLoaded && soundObj?.status.isPlaying) {
+    // soundObj !== null
+    if (soundObj.status.isLoaded && soundObj.status.isPlaying) {
       const status = await soundObj.playbackObj.pauseAsync();
       setSoundObj({ ...soundObj, status });
+      setIsPlaying(!isPlaying);
+    }
+
+    // resume
+    if (soundObj.status.isLoaded && !soundObj.status.isPlaying) {
+      const status = await soundObj.playbackObj.playAsync();
+      setSoundObj({ ...soundObj, status });
+      setIsPlaying(!isPlaying);
     }
   };
+
+  const handleMusicOnScroll = async () => {
+    await soundObj.playbackObj.stopAsync();
+    await soundObj.playbackObj.unloadAsync();
+    setSoundObj(null);
+    setIsPlaying(!isPlaying);
+  };
+
+  useEffect(() => {
+    if (soundObj !== null) {
+      handleMusicOnScroll();
+      play(songs[songIndex], setSoundObj, setIsPlaying, isPlaying);
+    }
+  }, [songIndex]);
 
   return (
     <View style={styles.container}>
@@ -82,7 +101,15 @@ const Player = () => {
           <Ionicons name="play-skip-back-outline" size={30} color="#00FFFF" />
         </Pressable>
         <Pressable onPress={handleMusic}>
-          <Ionicons name="ios-play-circle" size={80} color="#00FFFF" />
+          <Ionicons
+            name={
+              soundObj?.status.isPlaying
+                ? "ios-pause-circle"
+                : "ios-play-circle"
+            }
+            size={80}
+            color="#00FFFF"
+          />
         </Pressable>
         <Pressable>
           <Ionicons
